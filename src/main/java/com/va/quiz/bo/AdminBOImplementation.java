@@ -11,7 +11,7 @@ public class AdminBOImplementation implements AdminBO {
 	AdminDAO dao;
 
 	public Admin getAdmin(Admin admin) {
-		dao.getAdmin(admin);
+		admin = dao.getAdmin(admin);
 		return admin;
 	}
 

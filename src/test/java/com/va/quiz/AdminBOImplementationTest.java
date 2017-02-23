@@ -1,6 +1,6 @@
 package com.va.quiz;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -35,6 +35,24 @@ public class AdminBOImplementationTest {
 
 		assertSame(admin, resultAdmin);
 		Mockito.verify(daoMock).getAdmin(admin);
+	}
+	@Test
+	public void shouldReturnNullWhenAdminDontExists() {
+		Mockito.when(daoMock.getAdmin(admin)).thenReturn(null);
+
+		Admin resultAdmin = bo.getAdmin(admin);
+
+		assertNull(resultAdmin);
+		Mockito.verify(daoMock).getAdmin(admin);
+	}
+	@Test
+	public void shouldReturnNullWhenGettingAdminButArgumentIsNull() {
+		Mockito.when(daoMock.getAdmin(null)).thenReturn(null);
+
+		Admin resultAdmin = bo.getAdmin(null);
+
+		assertNull(resultAdmin);
+		Mockito.verify(daoMock).getAdmin(null);
 	}
 }
 
