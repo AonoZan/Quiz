@@ -70,5 +70,49 @@ public class AdminBOImplementationTest {
 		assertNull(resultAdmin);
 		Mockito.verifyZeroInteractions(daoMock);
 	}
+
+	@Test
+	public void shouldReturnTrueWhenAddingAdminThatDoesNotExists() {
+		Mockito.when(daoMock.addAdmin(admin)).thenReturn(true);
+
+		boolean result = bo.addAdmin(admin);
+
+		assertTrue(result);
+		Mockito.verify(daoMock).addAdmin(admin);
+	}
+	@Test
+	public void shouldReturnFalseWhenAddingAdminThatExists() {
+		Mockito.when(daoMock.addAdmin(admin)).thenReturn(false);
+
+		boolean result = bo.addAdmin(admin);
+
+		assertFalse(result);
+		Mockito.verify(daoMock).addAdmin(admin);
+	}
+	@Test
+	public void shouldReturnFalseWhenAddingButArgumentIsNull() {
+		boolean result = bo.addAdmin(null);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+	@Test
+	public void shouldReturnFalseWhenAddingAdminButNameIsNull() {
+		Admin admin = new Admin(null, PASS);
+
+		boolean result = bo.addAdmin(admin);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+	@Test
+	public void shouldReturnNullWhenAddingAdminButPassIsNull() {
+		Admin admin = new Admin(NAME, null);
+
+		boolean result = bo.addAdmin(admin);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
 }
 
