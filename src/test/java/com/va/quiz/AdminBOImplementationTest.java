@@ -47,12 +47,28 @@ public class AdminBOImplementationTest {
 	}
 	@Test
 	public void shouldReturnNullWhenGettingAdminButArgumentIsNull() {
-		Mockito.when(daoMock.getAdmin(null)).thenReturn(null);
-
 		Admin resultAdmin = bo.getAdmin(null);
 
 		assertNull(resultAdmin);
-		Mockito.verify(daoMock).getAdmin(null);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+	@Test
+	public void shouldReturnNullWhenGettingAdminButNameIsNull() {
+		Admin admin = new Admin(null, PASS);
+
+		Admin resultAdmin = bo.getAdmin(admin);
+
+		assertNull(resultAdmin);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+	@Test
+	public void shouldReturnNullWhenGettingAdminButPassIsNull() {
+		Admin admin = new Admin(NAME, null);
+
+		Admin resultAdmin = bo.getAdmin(admin);
+
+		assertNull(resultAdmin);
+		Mockito.verifyZeroInteractions(daoMock);
 	}
 }
 

@@ -1,4 +1,3 @@
-
 package com.va.quiz.bo;
 
 import com.va.quiz.dao.AdminDAO;
@@ -11,6 +10,10 @@ public class AdminBOImplementation implements AdminBO {
 	AdminDAO dao;
 
 	public Admin getAdmin(Admin admin) {
+		if (admin == null || admin.getName() == null || admin.getPass() == null) {
+			return null;
+		}
+
 		admin = dao.getAdmin(admin);
 		return admin;
 	}
