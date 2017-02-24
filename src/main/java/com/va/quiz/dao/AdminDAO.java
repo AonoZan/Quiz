@@ -7,4 +7,5 @@ import com.va.quiz.dto.Admin;
  */
 public interface AdminDAO {
 	public Admin getAdmin(Admin admin);
+	public boolean addAdmin(Admin admin);
 }
