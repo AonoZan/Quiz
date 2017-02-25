@@ -24,6 +24,7 @@ public class QuestionBOImplementation implements QuestionBO {
 
 	private boolean isValidQuestion(Question question) {
 		if (question == null 
+				|| question.getID() < 1
 				|| question.getEditor() < 1
 				|| question.getContent() == null
 				|| question.getSolution() == null
