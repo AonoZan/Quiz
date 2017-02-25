@@ -9,4 +9,5 @@ import com.va.quiz.dto.User;
 public interface UserDAO {
 	public User getUser(User user);
 	public boolean addUser(User user);
+	public boolean deleteUser(User user);
 }

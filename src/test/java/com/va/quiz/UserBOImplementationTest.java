@@ -117,5 +117,24 @@ public class UserBOImplementationTest {
 		assertFalse(result);
 		Mockito.verifyZeroInteractions(daoMock);
 	}
+
+	@Test
+	public void shouldReturnTrueWhenDeletingUserThatExists() {
+		Mockito.when(daoMock.deleteUser(user)).thenReturn(true);
+
+		boolean result = bo.deleteUser(user);
+
+		assertTrue(result);
+		Mockito.verify(daoMock).deleteUser(user);
+	}
+	@Test
+	public void shouldReturnFalseWhenDeletingUserThatDoesNotExists() {
+		Mockito.when(daoMock.deleteUser(user)).thenReturn(false);
+
+		boolean result = bo.deleteUser(user);
+
+		assertFalse(result);
+		Mockito.verify(daoMock).deleteUser(user);
+	}
 }
 

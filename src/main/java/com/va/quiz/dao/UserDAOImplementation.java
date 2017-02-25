@@ -15,4 +15,8 @@ public class UserDAOImplementation implements UserDAO {
 	public boolean addUser(User user) {
 		return false;
 	}
+	@Override
+	public boolean deleteUser(User user) {
+		return false;
+	}
 }

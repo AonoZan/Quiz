@@ -1,7 +1,6 @@
 
 package com.va.quiz.bo;
 
-import com.va.quiz.dao.UserDAO;
 import com.va.quiz.dto.User;
 
 /**
@@ -9,5 +8,6 @@ import com.va.quiz.dto.User;
  */
 public interface UserBO {
 	public User getUser(User user);
-	public void setDao(UserDAO dao);
+	public boolean addUser(User user);
+	public boolean deleteUser(User user);
 }

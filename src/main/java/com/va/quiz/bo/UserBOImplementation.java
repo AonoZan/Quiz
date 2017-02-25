@@ -17,11 +17,20 @@ public class UserBOImplementation implements UserBO {
 		user = dao.getUser(user);
 		return user;
 	}
-	
+
+	@Override
 	public boolean addUser(User user) {
 		if (!userValid(user)) return false;
 
 		boolean result = dao.addUser(user);
+		return result;
+	}
+
+	@Override
+	public boolean deleteUser(User user) {
+		if (!userValid(user)) return false;
+
+		boolean result = dao.deleteUser(user);
 		return result;
 	}
 
@@ -32,7 +41,6 @@ public class UserBOImplementation implements UserBO {
 		return true;
 	}
 
-	@Override
 	public void setDao(UserDAO dao) {
 		this.dao = dao;
 	}
