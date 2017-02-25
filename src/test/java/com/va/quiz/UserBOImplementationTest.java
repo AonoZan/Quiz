@@ -31,7 +31,7 @@ public class UserBOImplementationTest {
 	}
 
 	@Test
-	public void shouldReturnAdminWhenAdminExists() {
+	public void shouldReturnUserWhenUserExists() {
 		Mockito.when(daoMock.getUser(user)).thenReturn(user);
 
 		User resultUser = bo.getUser(user);
@@ -40,7 +40,7 @@ public class UserBOImplementationTest {
 		Mockito.verify(daoMock).getUser(user);
 	}
 	@Test
-	public void shouldReturnNullWhenAdminDontExists() {
+	public void shouldReturnNullWhenUserDontExists() {
 		Mockito.when(daoMock.getUser(user)).thenReturn(null);
 
 		User resultUser = bo.getUser(user);
@@ -49,14 +49,14 @@ public class UserBOImplementationTest {
 		Mockito.verify(daoMock).getUser(user);
 	}
 	@Test
-	public void shouldReturnNullWhenGettingAdminButArgumentIsNull() {
+	public void shouldReturnNullWhenGettingUserButArgumentIsNull() {
 		User resultUser = bo.getUser(null);
 
 		assertNull(resultUser);
 		Mockito.verifyZeroInteractions(daoMock);
 	}
 	@Test
-	public void shouldReturnNullWhenGettingAdminButNameIsNull() {
+	public void shouldReturnNullWhenGettingUserButNameIsNull() {
 		User user = new User(null, PASS);
 
 		User resultUser = bo.getUser(user);
@@ -65,7 +65,7 @@ public class UserBOImplementationTest {
 		Mockito.verifyZeroInteractions(daoMock);
 	}
 	@Test
-	public void shouldReturnNullWhenGettingAdminButPassIsNull() {
+	public void shouldReturnNullWhenGettingUserButPassIsNull() {
 		User user = new User(NAME, null);
 
 		User resultUser = bo.getUser(user);
@@ -75,7 +75,7 @@ public class UserBOImplementationTest {
 	}
 
 	@Test
-	public void shouldReturnTrueWhenAddingAdminThatDoesNotExists() {
+	public void shouldReturnTrueWhenAddingUserThatDoesNotExists() {
 		Mockito.when(daoMock.addUser(user)).thenReturn(true);
 
 		boolean result = bo.addUser(user);
@@ -84,7 +84,7 @@ public class UserBOImplementationTest {
 		Mockito.verify(daoMock).addUser(user);
 	}
 	@Test
-	public void shouldReturnFalseWhenAddingAdminThatExists() {
+	public void shouldReturnFalseWhenAddingUserThatExists() {
 		Mockito.when(daoMock.addUser(user)).thenReturn(false);
 
 		boolean result = bo.addUser(user);
@@ -93,14 +93,14 @@ public class UserBOImplementationTest {
 		Mockito.verify(daoMock).addUser(user);
 	}
 	@Test
-	public void shouldReturnFalseWhenAddingButArgumentIsNull() {
+	public void shouldReturnFalseWhenAddingUserButArgumentIsNull() {
 		boolean result = bo.addUser(null);
 
 		assertFalse(result);
 		Mockito.verifyZeroInteractions(daoMock);
 	}
 	@Test
-	public void shouldReturnFalseWhenAddingAdminButNameIsNull() {
+	public void shouldReturnFalseWhenAddingUserButNameIsNull() {
 		User user = new User(null, PASS);
 
 		boolean result = bo.addUser(user);
@@ -109,7 +109,7 @@ public class UserBOImplementationTest {
 		Mockito.verifyZeroInteractions(daoMock);
 	}
 	@Test
-	public void shouldReturnNullWhenAddingAdminButPassIsNull() {
+	public void shouldReturnNullWhenAddingUserButPassIsNull() {
 		User user = new User(NAME, null);
 
 		boolean result = bo.addUser(user);
