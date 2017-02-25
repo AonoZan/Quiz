@@ -136,5 +136,30 @@ public class UserBOImplementationTest {
 		assertFalse(result);
 		Mockito.verify(daoMock).deleteUser(user);
 	}
+	@Test
+	public void shouldReturnFalseWhenDeletingUserButArgumentIsNull() {
+		boolean result = bo.deleteUser(null);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+	@Test
+	public void shouldReturnFalseWhenDeletingUserButNameIsNull() {
+		User user = new User(null, PASS);
+
+		boolean result = bo.deleteUser(user);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+	@Test
+	public void shouldReturnNullWhenDeletingUserButPassIsNull() {
+		User user = new User(NAME, null);
+
+		boolean result = bo.deleteUser(user);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
 }
 
