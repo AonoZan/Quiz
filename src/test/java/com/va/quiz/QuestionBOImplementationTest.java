@@ -1,6 +1,6 @@
 package com.va.quiz;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,7 @@ public class QuestionBOImplementationTest {
 		bo.setDao(daoMock);
 		question = new Question(EDITOR);
 	}
-	
+
 	@Test
 	public void shouldReturnAllQuestionsWhenAnyQuestionExists() {
 		Mockito.when(daoMock.getAllQuestions()).thenReturn(allQuestions);
@@ -39,6 +39,43 @@ public class QuestionBOImplementationTest {
 		assertSame(allQuestions, resultQuestions);
 		Mockito.verify(daoMock).getAllQuestions();
 	}
+	@Test
+	public void shouldReturnNullWhenNoQuestionsExists() {
+		Mockito.when(daoMock.getAllQuestions()).thenReturn(null);
+
+		ArrayList<Question> resultQuestions = bo.getAllQuestions();
+
+		assertNull(resultQuestions);
+		Mockito.verify(daoMock).getAllQuestions();
+	}
+
+	@Test
+	public void shouldAddQuestion() {
+		question.setContent("content");
+		question.setSolution("solution");
+		Mockito.when(daoMock.addQuestion(question)).thenReturn(true);
+
+		boolean result = bo.addQuestion(question);
+
+		assertTrue(result);
+		Mockito.verify(daoMock).addQuestion(question);
+	}
+	@Test
+	public void shouldReturnFalseWhenAddingQuestionButArgumentIsNull() {
+		Mockito.when(daoMock.addQuestion(null)).thenReturn(false);
+
+		boolean result = bo.addQuestion(null);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+	@Test
+	public void shouldReturnFalseWhenAddingQuestionButContentIsNull() {
+		boolean result = bo.addQuestion(question);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+
 	
 }
-

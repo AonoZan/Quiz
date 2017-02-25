@@ -9,4 +9,5 @@ import com.va.quiz.dto.Question;
  */
 public interface QuestionBO {
 	public ArrayList<Question> getAllQuestions();
+	boolean addQuestion(Question question);
 }

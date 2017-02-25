@@ -12,4 +12,9 @@ public class QuestionDAOImplementation implements QuestionDAO {
 	public ArrayList<Question> getAllQuestions() {
 		return null;
 	}
+
+	@Override
+	public boolean addQuestion(Question question) {
+		return false;
+	}
 }

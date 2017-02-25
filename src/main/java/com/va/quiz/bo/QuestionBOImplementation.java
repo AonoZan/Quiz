@@ -16,6 +16,22 @@ public class QuestionBOImplementation implements QuestionBO {
 		return dao.getAllQuestions();
 	}
 
+	@Override
+	public boolean addQuestion(Question question) {
+		if (!isValidQuestion(question)) return false;
+		return dao.addQuestion(question);
+	}
+
+	private boolean isValidQuestion(Question question) {
+		if (question == null 
+				|| question.getEditor() < 1
+				|| question.getContent() == null
+				|| question.getSolution() == null
+				|| question.getPoints() < 0) {
+			return false;
+		}
+		return true;
+	}
 	public void setDao(QuestionDAO dao) {
 		this.dao = dao;
 	}
