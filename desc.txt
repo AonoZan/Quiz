@@ -1,0 +1,19 @@
+Napisati (relativno) jednostavnu kviz konzolnu igru / aplikaciju. Aplikacija treba da koristi bazu podataka da zapamti stanje nakon gašenja.
+
+Aplikacija treba da ima dva user tiera: Admin & User. Aplikacija treba da omogući korisniku registrovanje, logiranje u aplikaciju te logout iz aplikacije. 
+
+User može / treba da ima sljedeće mogućnosti:
+
+Odigrati jednu partiju kviza
+Izlistati rezultate prethodnih partija
+Izlistati top 100 rezultata svih registrovanih korisnika
+
+Admin može / treba da ima sljedeće mogućnosti:
+
+Dodavanje odgovora / pitanja
+Editovanje pitanja / odgovora
+Brisanje korisnika
+
+Što se tiče izgleda vaše aplikacija te formata kviza (korisnik unosi tačan odgovor / korisnik bira ponudjeni odgovor / nešto treće) - imate potpunu kreativnu slobodu.
+Što se tiče samog "gameplaya" i tu imate  potpunu kreativnu slobodu.
+(Dakle, da li će korisnik svaku partiju dobiti 25 pitanja ili igrati dok ne pogriješi pitanje - na vama je)
