@@ -31,12 +31,21 @@ public class ScoreBOImplementationTest {
 	}
 
 	@Test
-	public void shouldReturnTopHoundresScores() {
+	public void shouldReturnTopHundredScores() {
 		Mockito.when(daoMock.getTopHundred()).thenReturn(scores);
 
 		ArrayList<Score> scoresResult = bo.getTopHundred();
 
 		assertSame(scores, scoresResult);
+		Mockito.verify(daoMock).getTopHundred();
+	}
+	@Test
+	public void shouldReturnEmptyListOfScoresWhenNoScoreEntry() {
+		Mockito.when(daoMock.getTopHundred()).thenReturn(null);
+
+		ArrayList<Score> scoresResult = bo.getTopHundred();
+
+		assertEquals(scores, scoresResult);
 		Mockito.verify(daoMock).getTopHundred();
 	}
 }
