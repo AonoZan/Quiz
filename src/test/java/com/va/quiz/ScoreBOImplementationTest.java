@@ -1,7 +1,6 @@
 package com.va.quiz;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +33,41 @@ public class ScoreBOImplementationTest {
 		bo.setDao(daoMock);
 		score = new Score(USER_ID);
 		user = defaultUser();
+	}
+
+	@Test
+	public void shouldAddScore() throws SQLException {
+		Mockito.when(daoMock.addScore(score)).thenReturn(true);
+
+		boolean result = bo.addScore(score);
+
+		assertTrue(result);
+		Mockito.verify(daoMock).addScore(score);
+	}
+	@Test
+	public void shouldReturnFalseWhenAddingButArgumentIsNull() throws SQLException {
+		boolean result = bo.addScore(null);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+	@Test
+	public void shouldReturnFalseWhenAddingButUserIDIsNotValid() throws SQLException {
+		score.setID(WRONG_ID);
+
+		boolean result = bo.addScore(score);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+	@Test
+	public void shouldReturnFalseWhenAddingButResultScoreNotValid() throws SQLException {
+		score.setResult(-100);
+
+		boolean result = bo.addScore(score);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
 	}
 
 	@Test

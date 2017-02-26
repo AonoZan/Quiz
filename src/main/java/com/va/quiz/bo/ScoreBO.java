@@ -12,5 +12,6 @@ import com.va.quiz.dto.User;
 public interface ScoreBO {
 	ArrayList<Score> getTopHundred();
 	ArrayList<Score> getScores(User user);
+	boolean addScore(Score score);
 	void setDao(ScoreDAO dao);
 }

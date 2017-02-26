@@ -12,4 +12,5 @@ import com.va.quiz.dto.User;
 public interface ScoreDAO {
 	public ArrayList<Score> getTopHundred() throws SQLException;
 	public ArrayList<Score> getScores(User user) throws SQLException;
+	public boolean addScore(Score score) throws SQLException;
 }

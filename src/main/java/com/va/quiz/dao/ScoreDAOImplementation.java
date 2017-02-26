@@ -51,7 +51,7 @@ public class ScoreDAOImplementation implements ScoreDAO {
 
 			statement.setInt(1, user.getID());
 
-			result = statement.executeQuery(query);
+			result = statement.executeQuery();
 
 			while(result.next()) {
 				Score score = new Score(user.getID());
@@ -63,5 +63,22 @@ public class ScoreDAOImplementation implements ScoreDAO {
 		}
 
 		return list;
+	}
+
+	@Override
+	public boolean addScore(Score score) throws SQLException {
+		String query = "INSERT INTO quiz.score "
+				+ "(user_id, result) "
+				+ "VALUES (?, ?);";
+
+		try (PreparedStatement statement = conn.prepareStatement(query)){
+
+			statement.setInt(1, score.getUserID());
+			statement.setInt(2, score.getResult());
+
+			statement.executeUpdate();
+
+			return true;
+		}
 	}
 }

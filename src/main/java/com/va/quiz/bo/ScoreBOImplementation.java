@@ -42,6 +42,20 @@ public class ScoreBOImplementation implements ScoreBO {
 
 		return scores;
 	}
+	
+	@Override
+	public boolean addScore(Score score) {
+		if (score == null || score.getUserID() < 1 || score.getResult() < 0) return false;
+
+		boolean result = false;
+		try {
+			result = dao.addScore(score);
+		} catch (SQLException e) {
+			App.close(e.getMessage());
+		}
+
+		return result;
+	}
 
 	@Override
 	public void setDao(ScoreDAO dao) {
