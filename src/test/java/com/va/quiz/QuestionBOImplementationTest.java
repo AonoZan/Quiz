@@ -115,6 +115,66 @@ public class QuestionBOImplementationTest {
 		Mockito.verifyZeroInteractions(daoMock);
 	}
 
+	@Test
+	public void shouldUpdateQuestion() {
+		Mockito.when(daoMock.updateQuestion(question)).thenReturn(true);
+
+		boolean result = bo.updateQuestion(question);
+
+		assertTrue(result);
+		Mockito.verify(daoMock).updateQuestion(question);
+	}
+	@Test
+	public void shouldReturnFalseWhenUpdatingQuestionButArgumentIsNull() {
+		Mockito.when(daoMock.updateQuestion(null)).thenReturn(false);
+
+		boolean result = bo.updateQuestion(null);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+	@Test
+	public void shouldReturnFalseWhenUpdatingQuestionButIDIsNotValid() {
+		question.setID(NEGATIVE_NUM);
+		boolean result = bo.updateQuestion(question);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+	@Test
+	public void shouldReturnFalseWhenUpdatingQuestionButEditorIDIsNotValid() {
+		question = new Question(NEGATIVE_NUM);
+		defaultQuestion(question);
+		boolean result = bo.updateQuestion(question);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+	@Test
+	public void shouldReturnFalseWhenUpdatingQuestionButContentIsNull() {
+		question.setContent(null);
+		boolean result = bo.updateQuestion(question);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+	@Test
+	public void shouldReturnFalseWhenUpdatingQuestionButSolutionIsNull() {
+		question.setSolution(null);
+		boolean result = bo.updateQuestion(question);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+	@Test
+	public void shouldReturnFalseWhenUpdatingQuestionButPointsAreNegative() {
+		question.setPoints(NEGATIVE_NUM);
+		boolean result = bo.updateQuestion(question);
+
+		assertFalse(result);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+
 	private void defaultQuestion(Question question) {
 		question.setID(ID);
 		question.setContent(CONTENT);

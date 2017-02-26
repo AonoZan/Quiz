@@ -22,6 +22,12 @@ public class QuestionBOImplementation implements QuestionBO {
 		return dao.addQuestion(question);
 	}
 
+	@Override
+	public boolean updateQuestion(Question question) {
+		if (!isValidQuestion(question)) return false;
+		return dao.updateQuestion(question);
+	}
+
 	private boolean isValidQuestion(Question question) {
 		if (question == null 
 				|| question.getID() < 1

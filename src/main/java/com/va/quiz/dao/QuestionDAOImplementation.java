@@ -17,4 +17,9 @@ public class QuestionDAOImplementation implements QuestionDAO {
 	public boolean addQuestion(Question question) {
 		return false;
 	}
+
+	@Override
+	public boolean updateQuestion(Question question) {
+		return false;
+	}
 }

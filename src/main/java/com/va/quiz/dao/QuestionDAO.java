@@ -10,4 +10,5 @@ import com.va.quiz.dto.Question;
 public interface QuestionDAO {
 	public ArrayList<Question> getAllQuestions();
 	public boolean addQuestion(Question question);
+	public boolean updateQuestion(Question question);
 }
