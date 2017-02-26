@@ -2,6 +2,7 @@ package com.va.quiz;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -37,7 +38,7 @@ public class QuestionBOImplementationTest {
 	}
 
 	@Test
-	public void shouldReturnAllQuestionsWhenAnyQuestionExists() {
+	public void shouldReturnAllQuestionsWhenAnyQuestionExists() throws SQLException {
 		Mockito.when(daoMock.getAllQuestions()).thenReturn(allQuestions);
 
 		ArrayList<Question> resultQuestions = bo.getAllQuestions();
@@ -46,7 +47,7 @@ public class QuestionBOImplementationTest {
 		Mockito.verify(daoMock).getAllQuestions();
 	}
 	@Test
-	public void shouldReturnNullWhenNoQuestionsExists() {
+	public void shouldReturnNullWhenNoQuestionsExists() throws SQLException {
 		Mockito.when(daoMock.getAllQuestions()).thenReturn(null);
 
 		ArrayList<Question> resultQuestions = bo.getAllQuestions();
@@ -56,7 +57,7 @@ public class QuestionBOImplementationTest {
 	}
 
 	@Test
-	public void shouldAddQuestion() {
+	public void shouldAddQuestion() throws SQLException {
 		Mockito.when(daoMock.addQuestion(question)).thenReturn(true);
 
 		boolean result = bo.addQuestion(question);
@@ -65,18 +66,10 @@ public class QuestionBOImplementationTest {
 		Mockito.verify(daoMock).addQuestion(question);
 	}
 	@Test
-	public void shouldReturnFalseWhenAddingQuestionButArgumentIsNull() {
+	public void shouldReturnFalseWhenAddingQuestionButArgumentIsNull() throws SQLException {
 		Mockito.when(daoMock.addQuestion(null)).thenReturn(false);
 
 		boolean result = bo.addQuestion(null);
-
-		assertFalse(result);
-		Mockito.verifyZeroInteractions(daoMock);
-	}
-	@Test
-	public void shouldReturnFalseWhenAddingQuestionButIDIsNotValid() {
-		question.setID(NEGATIVE_NUM);
-		boolean result = bo.addQuestion(question);
 
 		assertFalse(result);
 		Mockito.verifyZeroInteractions(daoMock);
@@ -116,7 +109,7 @@ public class QuestionBOImplementationTest {
 	}
 
 	@Test
-	public void shouldUpdateQuestion() {
+	public void shouldUpdateQuestion() throws SQLException {
 		Mockito.when(daoMock.updateQuestion(question)).thenReturn(true);
 
 		boolean result = bo.updateQuestion(question);
@@ -126,17 +119,14 @@ public class QuestionBOImplementationTest {
 	}
 	@Test
 	public void shouldReturnFalseWhenUpdatingQuestionButArgumentIsNull() {
-		Mockito.when(daoMock.updateQuestion(null)).thenReturn(false);
+		try {
+			Mockito.when(daoMock.updateQuestion(null)).thenReturn(false);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		boolean result = bo.updateQuestion(null);
-
-		assertFalse(result);
-		Mockito.verifyZeroInteractions(daoMock);
-	}
-	@Test
-	public void shouldReturnFalseWhenUpdatingQuestionButIDIsNotValid() {
-		question.setID(NEGATIVE_NUM);
-		boolean result = bo.updateQuestion(question);
 
 		assertFalse(result);
 		Mockito.verifyZeroInteractions(daoMock);

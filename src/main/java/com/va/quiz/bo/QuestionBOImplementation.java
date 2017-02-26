@@ -1,7 +1,9 @@
 package com.va.quiz.bo;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.va.quiz.App;
 import com.va.quiz.dao.QuestionDAO;
 import com.va.quiz.dto.Question;
 
@@ -10,27 +12,47 @@ import com.va.quiz.dto.Question;
  */
 public class QuestionBOImplementation implements QuestionBO {
 	private QuestionDAO dao;
+	ArrayList<Question> list = new ArrayList<>();
 
 	@Override
 	public ArrayList<Question> getAllQuestions() {
-		return dao.getAllQuestions();
+		try {
+			return dao.getAllQuestions();
+		} catch (SQLException e) {
+			App.close(e.getMessage());
+		}
+		return list;
 	}
 
 	@Override
 	public boolean addQuestion(Question question) {
 		if (!isValidQuestion(question)) return false;
-		return dao.addQuestion(question);
+
+		boolean result = false;
+		try {
+			result = dao.addQuestion(question);
+		} catch (SQLException e) {
+			App.close(e.getMessage());
+		}
+		return result;
 	}
 
 	@Override
 	public boolean updateQuestion(Question question) {
 		if (!isValidQuestion(question)) return false;
-		return dao.updateQuestion(question);
+
+		boolean result = false;
+		try {
+			result = dao.updateQuestion(question);
+		} catch (SQLException e) {
+			App.close(e.getMessage());
+		}
+		return result;
 	}
 
 	private boolean isValidQuestion(Question question) {
 		if (question == null 
-				|| question.getID() < 1
+//				|| question.getID() < 1
 				|| question.getEditor() < 1
 				|| question.getContent() == null
 				|| question.getSolution() == null
@@ -39,6 +61,8 @@ public class QuestionBOImplementation implements QuestionBO {
 		}
 		return true;
 	}
+
+	@Override
 	public void setDao(QuestionDAO dao) {
 		this.dao = dao;
 	}
