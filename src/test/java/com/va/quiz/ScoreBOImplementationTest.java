@@ -32,7 +32,7 @@ public class ScoreBOImplementationTest {
 	public void setUp() {
 		bo.setDao(daoMock);
 		score = new Score(USER_ID);
-		defaultUser(user);
+		user = defaultUser();
 	}
 
 	@Test
@@ -56,6 +56,7 @@ public class ScoreBOImplementationTest {
 
 	@Test
 	public void shouldReturnScores() {
+		user.setID(USER_ID);
 		Mockito.when(daoMock.getScores(user)).thenReturn(scores);
 
 		ArrayList<Score> scoresResult = bo.getScores(user);
@@ -64,7 +65,8 @@ public class ScoreBOImplementationTest {
 		Mockito.verify(daoMock).getScores(user);
 	}
 	@Test
-	public void shouldReturnEmptyListOfScoresWhenNoScoreFOrUser() {
+	public void shouldReturnEmptyListOfScoresWhenNoScoreForUser() {
+		user.setID(USER_ID);
 		Mockito.when(daoMock.getScores(user)).thenReturn(null);
 
 		ArrayList<Score> scoresResult = bo.getScores(user);
@@ -72,9 +74,18 @@ public class ScoreBOImplementationTest {
 		assertEquals(scores, scoresResult);
 		Mockito.verify(daoMock).getScores(user);
 	}
+	@Test
+	public void shouldReturnEmptyListOfScoresWhenUserIDIsNotValid() {
+		user.setID(WRONG_ID);
 
-	private void defaultUser(User user) {
-		user = new User(NAME, PASS);
-		user.setID(USER_ID);
+		ArrayList<Score> scoresResult = bo.getScores(user);
+
+		assertEquals(scores, scoresResult);
+		Mockito.verifyZeroInteractions(daoMock);
+	}
+
+	private User defaultUser() {
+		User user = new User(NAME, PASS);
+		return user;
 	}
 }

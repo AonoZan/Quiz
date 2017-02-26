@@ -23,8 +23,9 @@ public class ScoreBOImplementation implements ScoreBO {
 
 	@Override
 	public ArrayList<Score> getScores(User user) {
-		ArrayList<Score> scores = dao.getScores(user);
+		if(user.getID() < 1) return new ArrayList<>();
 
+		ArrayList<Score> scores = dao.getScores(user);
 		if(scores == null) scores = new ArrayList<>();
 
 		return scores;
