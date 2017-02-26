@@ -23,7 +23,11 @@ public class ScoreBOImplementation implements ScoreBO {
 
 	@Override
 	public ArrayList<Score> getScores(User user) {
-		return dao.getScores(user);
+		ArrayList<Score> scores = dao.getScores(user);
+
+		if(scores == null) scores = new ArrayList<>();
+
+		return scores;
 	}
 
 	public void setDao(ScoreDAO dao) {

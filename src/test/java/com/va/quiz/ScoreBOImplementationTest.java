@@ -63,6 +63,15 @@ public class ScoreBOImplementationTest {
 		assertSame(scores, scoresResult);
 		Mockito.verify(daoMock).getScores(user);
 	}
+	@Test
+	public void shouldReturnEmptyListOfScoresWhenNoScoreFOrUser() {
+		Mockito.when(daoMock.getScores(user)).thenReturn(null);
+
+		ArrayList<Score> scoresResult = bo.getScores(user);
+
+		assertEquals(scores, scoresResult);
+		Mockito.verify(daoMock).getScores(user);
+	}
 
 	private void defaultUser(User user) {
 		user = new User(NAME, PASS);
