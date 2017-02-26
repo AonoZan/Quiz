@@ -2,6 +2,8 @@ package com.va.quiz;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -28,7 +30,7 @@ public class AdminBOImplementationTest {
 	}
 
 	@Test
-	public void shouldReturnAdminWhenAdminExists() {
+	public void shouldReturnAdminWhenAdminExists() throws SQLException {
 		Mockito.when(daoMock.getAdmin(admin)).thenReturn(admin);
 
 		Admin resultAdmin = bo.getAdmin(admin);
@@ -37,7 +39,7 @@ public class AdminBOImplementationTest {
 		Mockito.verify(daoMock).getAdmin(admin);
 	}
 	@Test
-	public void shouldReturnNullWhenAdminDontExists() {
+	public void shouldReturnNullWhenAdminDontExists() throws SQLException {
 		Mockito.when(daoMock.getAdmin(admin)).thenReturn(null);
 
 		Admin resultAdmin = bo.getAdmin(admin);
@@ -72,7 +74,7 @@ public class AdminBOImplementationTest {
 	}
 
 	@Test
-	public void shouldReturnTrueWhenAddingAdminThatDoesNotExists() {
+	public void shouldReturnTrueWhenAddingAdminThatDoesNotExists() throws SQLException {
 		Mockito.when(daoMock.addAdmin(admin)).thenReturn(true);
 
 		boolean result = bo.addAdmin(admin);
@@ -81,7 +83,7 @@ public class AdminBOImplementationTest {
 		Mockito.verify(daoMock).addAdmin(admin);
 	}
 	@Test
-	public void shouldReturnFalseWhenAddingAdminThatExists() {
+	public void shouldReturnFalseWhenAddingAdminThatExists() throws SQLException {
 		Mockito.when(daoMock.addAdmin(admin)).thenReturn(false);
 
 		boolean result = bo.addAdmin(admin);

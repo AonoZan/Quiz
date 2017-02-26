@@ -1,5 +1,8 @@
 package com.va.quiz.bo;
 
+import java.sql.SQLException;
+
+import com.va.quiz.App;
 import com.va.quiz.dao.AdminDAO;
 import com.va.quiz.dto.Admin;
 
@@ -12,7 +15,11 @@ public class AdminBOImplementation implements AdminBO {
 	public Admin getAdmin(Admin admin) {
 		if (!adminValid(admin)) return null;
 
-		admin = dao.getAdmin(admin);
+		try {
+			admin = dao.getAdmin(admin);
+		} catch (SQLException e) {
+			App.close(e.getMessage());
+		}
 		return admin;
 	}
 
@@ -20,7 +27,12 @@ public class AdminBOImplementation implements AdminBO {
 	public boolean addAdmin(Admin admin) {
 		if (!adminValid(admin)) return false;
 
-		boolean result = dao.addAdmin(admin);
+		boolean result = false;
+		try {
+			result = dao.addAdmin(admin);
+		} catch (SQLException e) {
+			App.close(e.getMessage());
+		}
 		return result;
 	}
 
@@ -31,6 +43,7 @@ public class AdminBOImplementation implements AdminBO {
 		return true;
 	}
 
+	@Override
 	public void setDao(AdminDAO dao) {
 		this.dao = dao;
 	}

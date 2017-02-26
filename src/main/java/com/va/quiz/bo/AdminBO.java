@@ -1,5 +1,6 @@
 package com.va.quiz.bo;
 
+import com.va.quiz.dao.AdminDAO;
 import com.va.quiz.dto.Admin;
 
 /**
@@ -8,4 +9,5 @@ import com.va.quiz.dto.Admin;
 public interface AdminBO {
 	public Admin getAdmin(Admin admin);
 	public boolean addAdmin(Admin admin);
+	public void setDao(AdminDAO dao);
 }
