@@ -1,6 +1,11 @@
 package com.va.quiz;
 
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.va.quiz.bo.ScoreBOImplementation;
@@ -17,10 +22,21 @@ public class ScoreBOImplementationTest {
 	Score score;
 
 	final int USER_ID = 1, WRONG_ID = -1;
+	ArrayList<Score> scores = new ArrayList<>();
 
 	@Before
 	public void setUp() {
 		bo.setDao(daoMock);
 		score = new Score(USER_ID);
+	}
+
+	@Test
+	public void shouldReturnTopHoundresScores() {
+		Mockito.when(daoMock.getTopHundred()).thenReturn(scores);
+
+		ArrayList<Score> scoresResult = bo.getTopHundred();
+
+		assertSame(scores, scoresResult);
+		Mockito.verify(daoMock).getTopHundred();
 	}
 }
