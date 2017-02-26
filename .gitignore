@@ -1,2 +1,4 @@
+src/main/resources/db_setup.properties
 /target/
 *.bak
+*.uml~
