@@ -1,6 +1,9 @@
 
 package com.va.quiz.bo;
 
+import java.sql.SQLException;
+
+import com.va.quiz.App;
 import com.va.quiz.dao.UserDAO;
 import com.va.quiz.dto.User;
 
@@ -14,7 +17,11 @@ public class UserBOImplementation implements UserBO {
 	public User getUser(User user) {
 		if (!userValid(user)) return null;
 
-		user = dao.getUser(user);
+		try {
+			user = dao.getUser(user);
+		} catch (SQLException e) {
+			App.close(e.getMessage());
+		}
 		return user;
 	}
 
@@ -22,7 +29,12 @@ public class UserBOImplementation implements UserBO {
 	public boolean addUser(User user) {
 		if (!userValid(user)) return false;
 
-		boolean result = dao.addUser(user);
+		boolean result = false;
+		try {
+			result = dao.addUser(user);
+		} catch (SQLException e) {
+			App.close(e.getMessage());
+		}
 		return result;
 	}
 
@@ -30,7 +42,12 @@ public class UserBOImplementation implements UserBO {
 	public boolean deleteUser(User user) {
 		if (!userValid(user)) return false;
 
-		boolean result = dao.deleteUser(user);
+		boolean result = false;
+		try {
+			result = dao.deleteUser(user);
+		} catch (SQLException e) {
+			App.close(e.getMessage());
+		}
 		return result;
 	}
 
@@ -41,6 +58,7 @@ public class UserBOImplementation implements UserBO {
 		return true;
 	}
 
+	@Override
 	public void setDao(UserDAO dao) {
 		this.dao = dao;
 	}

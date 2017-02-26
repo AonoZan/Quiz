@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import java.sql.SQLException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -31,7 +33,7 @@ public class UserBOImplementationTest {
 	}
 
 	@Test
-	public void shouldReturnUserWhenUserExists() {
+	public void shouldReturnUserWhenUserExists() throws SQLException {
 		Mockito.when(daoMock.getUser(user)).thenReturn(user);
 
 		User resultUser = bo.getUser(user);
@@ -40,7 +42,7 @@ public class UserBOImplementationTest {
 		Mockito.verify(daoMock).getUser(user);
 	}
 	@Test
-	public void shouldReturnNullWhenUserDontExists() {
+	public void shouldReturnNullWhenUserDontExists() throws SQLException {
 		Mockito.when(daoMock.getUser(user)).thenReturn(null);
 
 		User resultUser = bo.getUser(user);
@@ -75,7 +77,7 @@ public class UserBOImplementationTest {
 	}
 
 	@Test
-	public void shouldReturnTrueWhenAddingUserThatDoesNotExists() {
+	public void shouldReturnTrueWhenAddingUserThatDoesNotExists() throws SQLException {
 		Mockito.when(daoMock.addUser(user)).thenReturn(true);
 
 		boolean result = bo.addUser(user);
@@ -84,7 +86,7 @@ public class UserBOImplementationTest {
 		Mockito.verify(daoMock).addUser(user);
 	}
 	@Test
-	public void shouldReturnFalseWhenAddingUserThatExists() {
+	public void shouldReturnFalseWhenAddingUserThatExists() throws SQLException {
 		Mockito.when(daoMock.addUser(user)).thenReturn(false);
 
 		boolean result = bo.addUser(user);
@@ -119,7 +121,7 @@ public class UserBOImplementationTest {
 	}
 
 	@Test
-	public void shouldReturnTrueWhenDeletingUserThatExists() {
+	public void shouldReturnTrueWhenDeletingUserThatExists() throws SQLException {
 		Mockito.when(daoMock.deleteUser(user)).thenReturn(true);
 
 		boolean result = bo.deleteUser(user);
@@ -128,7 +130,7 @@ public class UserBOImplementationTest {
 		Mockito.verify(daoMock).deleteUser(user);
 	}
 	@Test
-	public void shouldReturnFalseWhenDeletingUserThatDoesNotExists() {
+	public void shouldReturnFalseWhenDeletingUserThatDoesNotExists() throws SQLException {
 		Mockito.when(daoMock.deleteUser(user)).thenReturn(false);
 
 		boolean result = bo.deleteUser(user);
