@@ -2,6 +2,7 @@ package com.va.quiz.bo;
 
 import java.util.ArrayList;
 
+import com.va.quiz.dao.ScoreDAO;
 import com.va.quiz.dto.Score;
 import com.va.quiz.dto.User;
 
@@ -11,4 +12,5 @@ import com.va.quiz.dto.User;
 public interface ScoreBO {
 	ArrayList<Score> getTopHundred();
 	ArrayList<Score> getScores(User user);
+	void setDao(ScoreDAO dao);
 }

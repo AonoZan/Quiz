@@ -1,7 +1,9 @@
 package com.va.quiz.bo;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.va.quiz.App;
 import com.va.quiz.dao.ScoreDAO;
 import com.va.quiz.dto.Score;
 import com.va.quiz.dto.User;
@@ -14,7 +16,12 @@ public class ScoreBOImplementation implements ScoreBO {
 
 	@Override
 	public ArrayList<Score> getTopHundred() {
-		ArrayList<Score> scores = dao.getTopHundred();
+		ArrayList<Score> scores = null;
+		try {
+			scores = dao.getTopHundred();
+		} catch (SQLException e) {
+			App.close(e.getMessage());
+		}
 
 		if(scores == null) scores = new ArrayList<>();
 
@@ -25,12 +32,18 @@ public class ScoreBOImplementation implements ScoreBO {
 	public ArrayList<Score> getScores(User user) {
 		if(user.getID() < 1) return new ArrayList<>();
 
-		ArrayList<Score> scores = dao.getScores(user);
+		ArrayList<Score> scores = null;
+		try {
+			scores = dao.getScores(user);
+		} catch (SQLException e) {
+			App.close(e.getMessage());
+		}
 		if(scores == null) scores = new ArrayList<>();
 
 		return scores;
 	}
 
+	@Override
 	public void setDao(ScoreDAO dao) {
 		this.dao = dao;
 	}

@@ -3,6 +3,7 @@ package com.va.quiz;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -36,7 +37,7 @@ public class ScoreBOImplementationTest {
 	}
 
 	@Test
-	public void shouldReturnTopHundredScores() {
+	public void shouldReturnTopHundredScores() throws SQLException {
 		Mockito.when(daoMock.getTopHundred()).thenReturn(scores);
 
 		ArrayList<Score> scoresResult = bo.getTopHundred();
@@ -45,7 +46,7 @@ public class ScoreBOImplementationTest {
 		Mockito.verify(daoMock).getTopHundred();
 	}
 	@Test
-	public void shouldReturnEmptyListOfScoresWhenNoScoreEntry() {
+	public void shouldReturnEmptyListOfScoresWhenNoScoreEntry() throws SQLException {
 		Mockito.when(daoMock.getTopHundred()).thenReturn(null);
 
 		ArrayList<Score> scoresResult = bo.getTopHundred();
@@ -55,7 +56,7 @@ public class ScoreBOImplementationTest {
 	}
 
 	@Test
-	public void shouldReturnScores() {
+	public void shouldReturnScores() throws SQLException {
 		user.setID(USER_ID);
 		Mockito.when(daoMock.getScores(user)).thenReturn(scores);
 
@@ -65,7 +66,7 @@ public class ScoreBOImplementationTest {
 		Mockito.verify(daoMock).getScores(user);
 	}
 	@Test
-	public void shouldReturnEmptyListOfScoresWhenNoScoreForUser() {
+	public void shouldReturnEmptyListOfScoresWhenNoScoreForUser() throws SQLException {
 		user.setID(USER_ID);
 		Mockito.when(daoMock.getScores(user)).thenReturn(null);
 
