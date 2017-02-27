@@ -1,6 +1,9 @@
 package com.va.quiz;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,7 +27,7 @@ public class ScoreBOImplementationTest {
 	Score score;
 	User user;
 
-	final int USER_ID = 1, WRONG_ID = -1;
+	final int USER_ID = 1, WRONG_ID = -1, SCORE_ID = 4;
 	final String NAME = "Dejan", PASS = "pass";
 	ArrayList<Score> scores = new ArrayList<>();
 
@@ -53,7 +56,7 @@ public class ScoreBOImplementationTest {
 	}
 	@Test
 	public void shouldReturnFalseWhenAddingButUserIDIsNotValid() throws SQLException {
-		score.setID(WRONG_ID);
+		score = new Score(WRONG_ID);
 
 		boolean result = bo.addScore(score);
 
@@ -92,9 +95,18 @@ public class ScoreBOImplementationTest {
 	@Test
 	public void shouldReturnScores() throws SQLException {
 		user.setID(USER_ID);
+		score.setID(SCORE_ID);
+		scores.add(score);
+
 		Mockito.when(daoMock.getScores(user)).thenReturn(scores);
 
 		ArrayList<Score> scoresResult = bo.getScores(user);
+
+		for (Score s : scoresResult) {
+			assertSame(score, s);
+			assertEquals(SCORE_ID, s.getID());
+			assertEquals(score.toString(), s.toString());
+		}
 
 		assertSame(scores, scoresResult);
 		Mockito.verify(daoMock).getScores(user);

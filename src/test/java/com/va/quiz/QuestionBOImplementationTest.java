@@ -39,10 +39,16 @@ public class QuestionBOImplementationTest {
 
 	@Test
 	public void shouldReturnAllQuestionsWhenAnyQuestionExists() throws SQLException {
+		allQuestions.add(question);
 		Mockito.when(daoMock.getAllQuestions()).thenReturn(allQuestions);
 
 		ArrayList<Question> resultQuestions = bo.getAllQuestions();
 
+		for (Question q : resultQuestions) {
+			assertSame(question, q);
+			assertEquals(ID, q.getID());
+			assertEquals(question.toString(), q.toString());
+		}
 		assertSame(allQuestions, resultQuestions);
 		Mockito.verify(daoMock).getAllQuestions();
 	}
@@ -118,13 +124,8 @@ public class QuestionBOImplementationTest {
 		Mockito.verify(daoMock).updateQuestion(question);
 	}
 	@Test
-	public void shouldReturnFalseWhenUpdatingQuestionButArgumentIsNull() {
-		try {
-			Mockito.when(daoMock.updateQuestion(null)).thenReturn(false);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void shouldReturnFalseWhenUpdatingQuestionButArgumentIsNull() throws SQLException {
+		Mockito.when(daoMock.updateQuestion(null)).thenReturn(false);
 
 		boolean result = bo.updateQuestion(null);
 
