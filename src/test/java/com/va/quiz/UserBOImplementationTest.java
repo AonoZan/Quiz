@@ -6,6 +6,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +24,7 @@ public class UserBOImplementationTest {
 	UserBOImplementation bo = new UserBOImplementation();
 
 	User user;
+	ArrayList<User> allUsers = new ArrayList<>();
 
 	final String NAME = "Dejo", PASS = "Pass";
 
@@ -162,6 +164,29 @@ public class UserBOImplementationTest {
 
 		assertFalse(result);
 		Mockito.verifyZeroInteractions(daoMock);
+	}
+
+	@Test
+	public void shouldReturnAllUsersWhenAnyUserExists() throws SQLException {
+		allUsers.add(user);
+		Mockito.when(daoMock.getAllUsers()).thenReturn(allUsers);
+
+		ArrayList<User> resultUsers = bo.getAllUsers();
+
+		for (User u : resultUsers) {
+			assertSame(user, u);
+		}
+		assertSame(allUsers, resultUsers);
+		Mockito.verify(daoMock).getAllUsers();
+	}
+	@Test
+	public void shouldReturnNullWhenNoUserExists() throws SQLException {
+		Mockito.when(daoMock.getAllUsers()).thenReturn(null);
+
+		ArrayList<User> resultUsers = bo.getAllUsers();
+
+		assertNull(resultUsers);
+		Mockito.verify(daoMock).getAllUsers();
 	}
 }
 

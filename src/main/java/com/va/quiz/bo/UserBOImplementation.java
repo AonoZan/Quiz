@@ -2,6 +2,7 @@
 package com.va.quiz.bo;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.va.quiz.App;
 import com.va.quiz.dao.UserDAO;
@@ -49,6 +50,17 @@ public class UserBOImplementation implements UserBO {
 			App.close(e.getMessage());
 		}
 		return result;
+	}
+
+	@Override
+	public ArrayList<User> getAllUsers() {
+		ArrayList<User> list = null;
+		try {
+			list = dao.getAllUsers();
+		} catch (SQLException e) {
+			App.close(e.getMessage());
+		}
+		return list;
 	}
 
 	private boolean userValid(User user) {
