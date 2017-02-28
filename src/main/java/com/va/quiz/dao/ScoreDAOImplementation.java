@@ -19,7 +19,14 @@ public class ScoreDAOImplementation implements ScoreDAO {
 
 	@Override
 	public ArrayList<Score> getTopHundred() throws SQLException {
-		String query = "SELECT * FROM quiz.score ORDER BY result DESC LIMIT 100;";
+		String query = "SELECT score.user_id "
+				+ ", score.id "
+				+ ", score.result"
+				+ ", user.name  "
+				+ "FROM quiz.score "
+				+ "INNER JOIN quiz.user "
+				+ "ON quiz.score.user_id=quiz.user.id "
+				+ "ORDER BY result DESC LIMIT 100;";
 
 		ResultSet result;
 		ArrayList<Score> list = new ArrayList<>();
@@ -32,6 +39,7 @@ public class ScoreDAOImplementation implements ScoreDAO {
 				Score score = new Score(result.getInt("user_id"));
 				score.setID(result.getInt("id"));
 				score.setResult(result.getInt("result"));
+				score.setName(result.getString("name"));
 
 				list.add(score);
 			}
@@ -42,7 +50,15 @@ public class ScoreDAOImplementation implements ScoreDAO {
 
 	@Override
 	public ArrayList<Score> getScores(User user)  throws SQLException{
-		String query = "SELECT * FROM quiz.score WHERE user_id = ? ORDER BY result DESC;";
+		String query = "SELECT score.user_id "
+				+ ", score.id "
+				+ ", score.result"
+				+ ", user.name  "
+				+ "FROM quiz.score "
+				+ "INNER JOIN quiz.user "
+				+ "ON quiz.score.user_id=quiz.user.id "
+				+ "WHERE user_id = ? "
+				+ "ORDER BY result DESC LIMIT 100;";
 
 		ResultSet result;
 		ArrayList<Score> list = new ArrayList<>();
@@ -57,6 +73,7 @@ public class ScoreDAOImplementation implements ScoreDAO {
 				Score score = new Score(user.getID());
 				score.setID(result.getInt("id"));
 				score.setResult(result.getInt("result"));
+				score.setName(result.getString("name"));
 
 				list.add(score);
 			}
