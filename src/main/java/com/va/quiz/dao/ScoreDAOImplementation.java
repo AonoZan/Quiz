@@ -19,7 +19,7 @@ public class ScoreDAOImplementation implements ScoreDAO {
 
 	@Override
 	public ArrayList<Score> getTopHundred() throws SQLException {
-		String query = "SELECT * FROM quiz.score LIMIT 100;";
+		String query = "SELECT * FROM quiz.score ORDER BY result DESC LIMIT 100;";
 
 		ResultSet result;
 		ArrayList<Score> list = new ArrayList<>();
@@ -42,7 +42,7 @@ public class ScoreDAOImplementation implements ScoreDAO {
 
 	@Override
 	public ArrayList<Score> getScores(User user)  throws SQLException{
-		String query = "SELECT * FROM quiz.score WHERE user_id = ?;";
+		String query = "SELECT * FROM quiz.score WHERE user_id = ? ORDER BY result DESC;";
 
 		ResultSet result;
 		ArrayList<Score> list = new ArrayList<>();
