@@ -34,7 +34,7 @@ public class ConnectionManager {
 			return true;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-			return true;
+			return false;
 		}
 	}
 
@@ -43,7 +43,7 @@ public class ConnectionManager {
 			if (openConnection()) {
 				return connection;
 			} else {
-				System.out.println("Konekcija nije otvorena.");
+				System.out.println("Connection can't be extablished.");
 				return null;
 			}
 		}
