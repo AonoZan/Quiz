@@ -7,6 +7,7 @@ public class Score {
 	private int ID;
 	private int userID;
 	private int result;
+	String name;
 
 	public Score(int userID) {
 		super();
@@ -28,9 +29,15 @@ public class Score {
 	public int getUserID() {
 		return userID;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	@Override
 	public String toString() {
-		return String.valueOf(result);
+		return name + " : " + result;
 	}
 }

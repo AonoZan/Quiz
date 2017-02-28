@@ -26,4 +26,11 @@ public class Person {
 	public String getPass() {
 		return pass;
 	}
+
+	@Override
+	public String toString() {
+		return "name: " + name
+				+ "\npass: " + pass;
+	}
+	
 }
